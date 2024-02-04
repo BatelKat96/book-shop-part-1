@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<span></span>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book shop MVC</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <script defer src="https://kit.fontawesome.com/0d3f998bf1.js" crossorigin="anonymous"></script>
+</head>
+
+<body onload="onInit()">
+  <header>
+    <h1 data-heading="Booky">Booky</h1>
+  </header>
+  <div class="container">
+
+    <section class="book-filter">
+      <div class="options-container">
+        <div class="btns">
+          <button class="btn-option btn-table" onclick="onSetLayout('table')">
+            <i class="fa-solid fa-grip-lines"></i>
+          </button>
+          <button class="btn-option btn-cards" onclick="onSetLayout('cards')">
+            <i class="fa-solid fa-grip"></i>
+          </button>
+        </div>
+        <form oninput="onSetFilterBy(this)">
+
+          <input class="book-title" type="text" placeholder="Book title" name="by-title" />
+        </form>
+        <button onclick="onResetFilter()">Reset filters</button>
+        <div class="add-book-btn">
+          <span class="header" onclick="toggleAddBook()">Add a book</span>
+        </div>
+    </section>
+
+    <table>
+      <thead>
+        <tr>
+          <td><span >ID</span></td>
+          <td>
+            <span >Title</span>
+            <span class="sort name-asc" onclick="onSortBy('NAME_ASC')">▲</span>
+            <span class="sort name-des" onclick="onSortBy('NAME_DES')">▼</span>
+          </td>
+          <td>
+            <span >Price</span>
+            <span class="sort price-asc active-sort" onclick="onSortBy('PRICE_ASC')">▲</span>
+            <span class="sort price-des" onclick="onSortBy('PRICE_DES')">▼</span>
+          </td>
+          <td><span>Actions</span></td>
+        </tr>
+      </thead>
+
+      <tbody class="books-content"></tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="4" class="footer"></td>
+        </tr>
+
+      </tfoot>
+    </table>
+
+    <div class="cards-container">
+    </div>
+
+
+    <div class="card-footer"></div>
+
+
+    <div class="read-book">
+      <div class="book-cover-img">
+        <img src="" />
+      </div>
+      <div class="book-desc">
+        <span class="title"></span>
+        <p class="desc"></p>
+        <label for="book-rating">
+          <span >Rating</span>:
+          <span class="rate"></span>
+        </label>
+        <input class="book-rating" type="range" min="0" max="10" oninput="onChangeRating(this.value)" />
+      </div>
+      <span class="close" onclick="closeModal(this.parentElement)">✖</span>
+    </div>
+
+    <div class="update-book">
+      <form onsubmit="onUpdateBook(event)">
+        <span >Price for</span>:
+        <input class="book-update-price" type="number" step=".01"
+          placeholder="New Book Price (xx.xx)" autocomplete="off" pattern="^\\d\\d\\.\\d\\d$" />
+        <button >Update Price</button>
+      </form>
+      <span class="close" onclick="closeModal(this.parentElement)">✖</span>
+    </div>
+
+    <div class="add-book">
+      <form onsubmit="onAddBook(event)">
+        <span >Title</span>: <br /><input name="book-title" type="text"
+          placeholder="Book Title" autocomplete="off" />
+        <br />
+        <span >Price</span>: <br /><input name="book-price" type="number" step=".01"
+          placeholder="Book Price" autocomplete="off" />
+        <br />
+        <span >Image URL</span>:
+        <br />
+        <input name="book-image" type="text" placeholder="http(s)://.............jpeg" autocomplete="off"
+          pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)" />
+        <br />
+        <button >Create Book</button>
+      </form>
+      <span class="close" onclick="closeModal(this.parentElement)">✖</span>
+    </div>
+  </div>
+
+  <div class="user-msg hide"></div>
+
+  <footer></footer>
+
+
+  <script src="js/services/storage-service.js"></script>
+  <script src="js/services/utils-service.js"></script>
+  <script src="js/services/book-service.js"></script>
+  <script src="js/book-controller.js"></script>
+</body>
+
+</html>
